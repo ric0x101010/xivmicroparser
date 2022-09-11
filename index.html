@@ -116,7 +116,11 @@
                     date.setSeconds(killDuration);
                     const min = getTimeNumber(date.getMinutes());
                     const sec = getTimeNumber(date.getSeconds());;
-                    document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
+                    if ( targetCurrentHPporcent > 0 ) {
+                        document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
+                    } else {
+                        document.querySelector("#ttk").innerText = '00:00 TTK';
+                    }
                 }
                 document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
                 if(durationInFight) {
