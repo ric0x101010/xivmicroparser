@@ -1,5 +1,14 @@
+![example](https://ric0x101010.github.io/xivmicroparser/img/example.png)
+
 # xivmicropaser
-XIV Micro Parser for Overlay Plugin
+XIV Micro Parser for Overlay Plugin.
+
+It serves as a simplified presentation of the most important information about the fight.
+Broken down to:
+- The actual Fight Time.
+- The Time to Kill (TTK).
+- The life points of the enemy.
+- The group rDPS.
 
 ## Usage
 
