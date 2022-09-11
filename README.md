@@ -6,7 +6,7 @@ XIV Micro Parser for Overlay Plugin.
 It serves as a simplified presentation of the most important information about the fight.
 Broken down to:
 - The actual Fight Time.
-- The Time to Kill (TTK).
+- The Time to Kill (TTK). **Is calculated on the basis of the current rDPS and can be different, but is only intended as a guideline.**
 - The life points of the enemy.
 - The group rDPS.
 
