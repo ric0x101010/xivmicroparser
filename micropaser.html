@@ -1,0 +1,171 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        * {
+            font-family: "Meiryo";
+            font-size: 16px;
+        }
+
+        body, html {
+            margin: 0;
+        }
+
+        html {
+            height: 100%;
+            background-color: transparent;
+        }
+
+        .resizeHandle {
+            background-image: url(handle.png);
+            background-position: bottom right;
+            background-repeat: no-repeat;
+            box-sizing: border-box;
+        }
+
+        .main {
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            width: auto;
+            display: inline-block;
+        }
+
+        .header, .container, .footer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header, .container {
+            border-bottom: 2px solid white;
+        }
+
+        .header {
+            border-bottom-color: turquoise;
+        }
+
+        .container { 
+            border-bottom-color: pink;
+        }
+
+        .footer {
+            justify-content: end;
+        }
+
+        .header div, .container div, .footer div {
+            padding: 5px 10px
+        }
+
+        #timer {
+            color: aqua;
+        }
+
+
+        div#ttk {
+            color: lightpink;
+        }
+
+        div#currentHPProcent, div#HP {
+            color: chartreuse;
+        }
+    </style>
+    <script src="https://ngld.github.io/OverlayPlugin/assets/shared/common.min.js"></script>
+    <script>
+        const getTimeNumber = (time) => {
+            if( time >= 10 ) {
+                return time;
+            } else if (time > 0) {
+                return `0${time}`;
+            } else {
+                return 00;
+            }
+        }
+        document.addEventListener("onOverlayStateUpdate", function (e) {
+            if (!e.detail.isLocked) {
+                displayResizeHandle();
+            } else {
+                hideResizeHandle();
+            }
+        });
+        function displayResizeHandle() {
+            document.documentElement.classList.add("resizeHandle");
+        }
+        function hideResizeHandle() {
+            document.documentElement.classList.remove("resizeHandle");
+        }
+
+        let targetMaxHP = 0;
+        let targetCurrentHP = 0;
+        let targetCurrentHPporcent = 0;
+        let targetName = 0;
+
+        let rDPS = 0;
+
+        // CombatData イベントを購読
+        addOverlayListener("CombatData", (e) => {
+            // document.querySelector("#encounter").innerText = JSON.stringify(e, null, 4);
+            if( e && e.Encounter && e.Encounter ){
+                rDPS = e.Encounter.DPS
+                durationInFight = e.Encounter.duration
+                if(targetCurrentHP) {
+                    let killDuration = Math.ceil(targetCurrentHP / rDPS);
+                    const date = new Date(null);
+                    date.setSeconds(killDuration);
+                    const min = getTimeNumber(date.getMinutes());
+                    const sec = getTimeNumber(date.getSeconds());;
+                    document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
+                }
+                document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
+                if(durationInFight) {
+                    document.querySelector("#timer").innerText = `${durationInFight} Time`;
+                }
+            } else {
+                rDPS = 0;
+                document.querySelector("#timer").innerText = '00:00 Time';
+                document.querySelector("#ttk").innerText = '00:00 TTK';
+                document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
+            }
+            
+        });
+        addOverlayListener("EnmityTargetData", (e) => {
+            if(e && e.Target) {
+                targetMaxHP = e.Target.MaxHP;
+                targetCurrentHP = e.Target.CurrentHP;
+                targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
+                targetName = e.Target.Name;
+                document.querySelector("#targetName").innerText = targetName;
+                document.querySelector("#currentHPProcent").innerText = `${targetCurrentHPporcent}%`;
+                document.querySelector("#HP").innerText = `${targetCurrentHP} HP / ${targetMaxHP} HP`;
+            } else {
+                targetMaxHP = 0;
+                targetCurrentHP = 0;
+                targetCurrentHPporcent = 0;
+                targetName = '';
+                document.querySelector("#targetName").innerText = '';
+                document.querySelector("#currentHPProcent").innerText = '0%';
+                document.querySelector("#HP").innerText = '0 HP / 0 HP';
+            }
+        });
+        startOverlayEvents();
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div id="timer"></div>
+            <div id="targetName"></div>
+        </div>
+        <div class="container">
+            <div id="ttk"></div>
+            <div id="currentHPProcent"></div>
+            <div id="HP"></div>
+        </div>
+        <div class="footer">
+            <div id="rDPS"></div>
+        </div>
+    </div>
+</body>
+</html>
