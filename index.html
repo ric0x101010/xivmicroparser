@@ -104,9 +104,8 @@
 
         let rDPS = 0;
 
-        // CombatData イベントを購読
+        // CombatData 
         addOverlayListener("CombatData", (e) => {
-            // document.querySelector("#encounter").innerText = JSON.stringify(e, null, 4);
             if( e && e.Encounter && e.Encounter ){
                 rDPS = e.Encounter.DPS
                 durationInFight = e.Encounter.duration
@@ -116,11 +115,9 @@
                     date.setSeconds(killDuration);
                     const min = getTimeNumber(date.getMinutes());
                     const sec = getTimeNumber(date.getSeconds());;
-                    if ( targetCurrentHPporcent > 0 ) {
-                        document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
-                    } else {
-                        document.querySelector("#ttk").innerText = '00:00 TTK';
-                    }
+                    document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
+                } else {
+                    document.querySelector("#ttk").innerText = '00:00 TTK';
                 }
                 document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
                 if(durationInFight) {
@@ -134,6 +131,7 @@
             }
             
         });
+        // EnmityTargetData 
         addOverlayListener("EnmityTargetData", (e) => {
             if(e && e.Target) {
                 targetMaxHP = e.Target.MaxHP;
