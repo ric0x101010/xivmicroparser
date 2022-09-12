@@ -62,7 +62,9 @@
         #timer {
             color: aqua;
         }
-
+        div#fiftyprocent {
+            opacity: 0.75;
+         }
 
         div#ttk {
             color: lightpink;
@@ -98,6 +100,7 @@
         }
 
         let targetMaxHP = 0;
+        let targetMaxHPFifty = 0;
         let targetCurrentHP = 0;
         let targetCurrentHPporcent = 0;
         let targetName = 0;
@@ -135,7 +138,13 @@
         addOverlayListener("EnmityTargetData", (e) => {
             if(e && e.Target) {
                 targetMaxHP = e.Target.MaxHP;
+                targetMaxHPFifty = (e.Target.MaxHP / 2);
                 targetCurrentHP = e.Target.CurrentHP;
+                if ( document.querySelector('#ttkcheckbox').checked ) {
+                    targetCurrentHPporcent = ((targetCurrentHP - targetMaxHPFifty) / targetMaxHPFifty * 100).toFixed(2);
+                } else {
+                    targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
+                }
                 targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
                 targetName = e.Target.Name;
                 document.querySelector("#targetName").innerText = targetName;
@@ -143,6 +152,7 @@
                 document.querySelector("#HP").innerText = `${targetCurrentHP} HP / ${targetMaxHP} HP`;
             } else {
                 targetMaxHP = 0;
+                targetMaxHPFifty = 0;
                 targetCurrentHP = 0;
                 targetCurrentHPporcent = 0;
                 targetName = '';
@@ -157,16 +167,17 @@
 <body>
     <div class="main">
         <div class="header">
-            <div id="timer"></div>
+            <div id="timer">00:00 Time</div>
+            <div id="fiftyprocent"><input id="ttkcheckbox" type="checkbox"/> 50% TTK</div>
             <div id="targetName"></div>
         </div>
         <div class="container">
-            <div id="ttk"></div>
-            <div id="currentHPProcent"></div>
-            <div id="HP"></div>
+            <div id="ttk">00:00 TTK</div>
+            <div id="currentHPProcent">0%</div>
+            <div id="HP">0 HP / 0 HP</div>
         </div>
         <div class="footer">
-            <div id="rDPS"></div>
+            <div id="rDPS">0 rDPS</div>
         </div>
     </div>
 </body>
