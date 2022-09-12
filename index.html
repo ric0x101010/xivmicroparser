@@ -114,6 +114,9 @@
                 durationInFight = e.Encounter.duration
                 if(targetCurrentHP) {
                     let killDuration = Math.ceil(targetCurrentHP / rDPS);
+                    if ( document.querySelector('#ttkcheckbox').checked ) {
+                        killDuration = Math.ceil((targetCurrentHP - targetCurrentHPporcent) / rDPS);
+                    }
                     const date = new Date(null);
                     date.setSeconds(killDuration);
                     const min = getTimeNumber(date.getMinutes());
@@ -145,7 +148,6 @@
                 } else {
                     targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
                 }
-                targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
                 targetName = e.Target.Name;
                 document.querySelector("#targetName").innerText = targetName;
                 document.querySelector("#currentHPProcent").innerText = `${targetCurrentHPporcent}%`;
