@@ -115,7 +115,8 @@
                 if(targetCurrentHP) {
                     let killDuration = Math.ceil(targetCurrentHP / rDPS);
                     if ( document.querySelector('#ttkcheckbox').checked ) {
-                        killDuration = Math.ceil((targetCurrentHP - targetMaxHPFifty) / rDPS);
+                        const tmpFiftyHP = (targetCurrentHP - targetMaxHPFifty);
+                        killDuration = (tmpFiftyHP > 0 ) ? Math.ceil((targetCurrentHP - targetMaxHPFifty) / rDPS) : 0;
                     }
                     const date = new Date(null);
                     date.setSeconds(killDuration);
