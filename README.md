@@ -7,6 +7,7 @@ It serves as a simplified presentation of the most important information about t
 Broken down to:
 - The actual Fight Time.
 - The Time to Kill (TTK). **Is calculated on the basis of the current rDPS and can be different, but is only intended as a guideline.** 
+- Kill Time (KT), calculated on Time in Fight and Time to Kill
 - The life points of the enemy.
 - The group rDPS.
 
