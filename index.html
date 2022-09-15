@@ -148,7 +148,7 @@
                     
                     const splitDurationInFight = durationInFight.split(':');
                     let killTime = (Number(splitDurationInFight[0]*60) + Number(splitDurationInFight[1])) + killDuration;
-                    const date2  new Date(null);
+                    const date2 = new Date(null);
                     date2.setSeconds(killTime);
                     document.querySelector("#kt").innerText = `${getTimeNumber(date2.getMinutes())}:${getTimeNumber(date2.getSeconds())} TTK`;
                     
