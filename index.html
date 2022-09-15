@@ -188,7 +188,7 @@
                 
                 targetName = e.Target.Name;
                 document.querySelector("#targetName").innerText = targetName;
-                document.querySelector(".progress-hp").innerText = targetProgressHTML;
+                document.querySelector(".progress-hp").innerHTML = targetProgressHTML;
                 document.querySelector("#HP").innerText = `${targetCurrentHP} HP / ${targetMaxHP} HP`;
             } else {
                 targetMaxHP = 0;
