@@ -9,6 +9,7 @@ Broken down to:
 - The Time to Kill (TTK). **Is calculated on the basis of the current rDPS and can be different, but is only intended as a guideline.** 
 - Kill Time (KT), calculated on Time in Fight and Time to Kill
 - The life points of the enemy.
+- Progress Bar
 - The group rDPS.
 
 ### Test Feature
