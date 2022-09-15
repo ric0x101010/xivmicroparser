@@ -69,9 +69,33 @@
         div#ttk {
             color: lightpink;
         }
+        
+        div#kt {
+            color: papayawhip;
+        }
 
-        div#currentHPProcent, div#HP {
-            color: chartreuse;
+        .progress-hp {
+            background-color: crimson;
+            background-clip: content-box;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .progress-hp .progress-hpprocent {
+            background-color: seagreen;
+            height: 16px;
+            width: 0%;
+            padding: 0;
+        }
+
+        .progress-hp #currentHPProcent {
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
     <script src="https://ngld.github.io/OverlayPlugin/assets/shared/common.min.js"></script>
@@ -120,11 +144,17 @@
                     let killDuration = Math.ceil(tempTargetCurrentHP / rDPS);
                     const date = new Date(null);
                     date.setSeconds(killDuration);
-                    const min = getTimeNumber(date.getMinutes());
-                    const sec = getTimeNumber(date.getSeconds());;
-                    document.querySelector("#ttk").innerText = `${min}:${sec} TTK`;
+                     document.querySelector("#ttk").innerText = `${getTimeNumber(date.getMinutes())}:${getTimeNumber(date.getSeconds())} TTK`;
+                    
+                    const splitDurationInFight = durationInFight.split(':');
+                    let killTime = (Number(splitDurationInFight[0]*60) + Number(splitDurationInFight[1])) + killDuration;
+                    const date2  new Date(null);
+                    date2.setSeconds(killTime);
+                    document.querySelector("#kt").innerText = `${getTimeNumber(date2.getMinutes())}:${getTimeNumber(date2.getSeconds())} TTK`;
+                    
                 } else {
                     document.querySelector("#ttk").innerText = '00:00 TTK';
+                    document.querySelector("#kt").innerText = '00:00 KT';
                 }
                 document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
                 if(durationInFight) {
@@ -134,6 +164,7 @@
                 rDPS = 0;
                 document.querySelector("#timer").innerText = '00:00 Time';
                 document.querySelector("#ttk").innerText = '00:00 TTK';
+                document.querySelector("#kt").innerText = '00:00 KT';
                 document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
             }
             
@@ -149,9 +180,15 @@
                 } else {
                     targetCurrentHPporcent = (targetCurrentHP / targetMaxHP * 100).toFixed(2);
                 }
+                
+                let targetProgressHTML = '';
+                if ( targetCurrentHPporcent > 0) {
+                    targetProgressHTML = `<div class="progress-hpprocent" style="${targetCurrentHPporcent}%"><p id="currentHPProcent">${targetCurrentHPporcent}%</p></div>`;
+                }
+                
                 targetName = e.Target.Name;
                 document.querySelector("#targetName").innerText = targetName;
-                document.querySelector("#currentHPProcent").innerText = `${targetCurrentHPporcent}%`;
+                document.querySelector(".progress-hp").innerText = targetProgressHTML;
                 document.querySelector("#HP").innerText = `${targetCurrentHP} HP / ${targetMaxHP} HP`;
             } else {
                 targetMaxHP = 0;
@@ -160,7 +197,7 @@
                 targetCurrentHPporcent = 0;
                 targetName = '';
                 document.querySelector("#targetName").innerText = '';
-                document.querySelector("#currentHPProcent").innerText = '0%';
+                document.querySelector(".progress-hp").innerText = ''
                 document.querySelector("#HP").innerText = '0 HP / 0 HP';
             }
         });
@@ -176,10 +213,11 @@
         </div>
         <div class="container">
             <div id="ttk">00:00 TTK</div>
-            <div id="currentHPProcent">0%</div>
+            <div id="kt>00:00 KT/div>
             <div id="HP">0 HP / 0 HP</div>
         </div>
         <div class="footer">
+            <div class="progress-hp"></div>
             <div id="rDPS">0 rDPS</div>
         </div>
     </div>
