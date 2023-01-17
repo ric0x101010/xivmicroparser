@@ -129,19 +129,19 @@
         let targetCurrentHPporcent = 0;
         let targetName = 0;
 
-        let rDPS = 0;
+        let gDPS = 0;
 
         // CombatData 
         addOverlayListener("CombatData", (e) => {
             if( e && e.Encounter && e.Encounter ){
-                rDPS = e.Encounter.DPS
+                gDPS = e.Encounter.DPS
                 durationInFight = e.Encounter.duration
                 let tempTargetCurrentHP = targetCurrentHP;
                 if ( document.querySelector('#ttkcheckbox').checked ) {
                        tempTargetCurrentHP = (targetCurrentHP - targetMaxHPFifty);
                  }
                 if(tempTargetCurrentHP > 0) {
-                    let killDuration = Math.ceil(tempTargetCurrentHP / rDPS);
+                    let killDuration = Math.ceil(tempTargetCurrentHP / gDPS);
                     const date = new Date(null);
                     date.setSeconds(killDuration);
                      document.querySelector("#ttk").innerText = `${getTimeNumber(date.getMinutes())}:${getTimeNumber(date.getSeconds())} TTK`;
@@ -156,16 +156,16 @@
                     document.querySelector("#ttk").innerText = '00:00 TTK';
                     document.querySelector("#kt").innerText = '00:00 KT';
                 }
-                document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
+                document.querySelector("#gDPS").innerText = `${gDPS} gDPS`;
                 if(durationInFight) {
                     document.querySelector("#timer").innerText = `${durationInFight} Time`;
                 }
             } else {
-                rDPS = 0;
+                gDPS = 0;
                 document.querySelector("#timer").innerText = '00:00 Time';
                 document.querySelector("#ttk").innerText = '00:00 TTK';
                 document.querySelector("#kt").innerText = '00:00 KT';
-                document.querySelector("#rDPS").innerText = `${rDPS} rDPS`;
+                document.querySelector("#gDPS").innerText = `${gDPS} gDPS`;
             }
             
         });
@@ -212,7 +212,7 @@
         <div class="container">
             <div id="ttk">00:00 TTK</div>
             <div id="kt">00:00 KT</div>
-            <div id="rDPS">0 rDPS</div>
+            <div id="gDPS">0 DPS</div>
         </div>
         <div class="footer">
             <div class="progress-hp"></div>
