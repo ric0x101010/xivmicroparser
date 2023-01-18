@@ -27,6 +27,6 @@ Use this as overlay URL:
 ### Detailed
 
 1. Open ACT.
-2. Plugins > OverlayPlugin.dll > Add 'Mini Parse' with any name (e.g. Totoro).
+2. Plugins > OverlayPlugin.dll > Add 'Mini Parse' with any name (e.g. XIVmicropaser).
 3. Read warning below.
 4. Go to the new tab (e.g. Totoro), and set url as above.
