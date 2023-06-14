@@ -30,3 +30,6 @@ Use this as overlay URL:
 2. Plugins > OverlayPlugin.dll > Add 'Mini Parse' with any name (e.g. XIVmicropaser).
 3. Read warning below.
 4. Go to the new tab (e.g. XIVmicropaser), and set url as above.
+
+You can use it with IINact, so add this to your Browsingway/BunnyHUD
+> `https://ric0x101010.github.io/xivmicroparser/?OVERLAY_WS=ws://127.0.0.1:10501/ws`
